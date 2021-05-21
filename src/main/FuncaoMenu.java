@@ -8,6 +8,8 @@ import reserva.Reserva;
 
 public class FuncaoMenu {
 
+	String[] cadastroPessoa = { "Cpf", "Cnpj" };
+
 	public int menu() {
 		int opcao;
 		String aux = "Restaurante SABOR SOFISTICADO \n1.Reservar mesa \n2.Pesquisar reserva \n3.Imprimir reservas \n4.Imprimir lista de espera \n5.Cancelar reserva \n6.Finalizar  ";
@@ -24,15 +26,15 @@ public class FuncaoMenu {
 		String nome, cpf, cnpj;
 		int resposta;
 		boolean pagamentoAVista;
-		String[] cadastroPessoa = { "Cpf", "Cnpj" };
-		String[] pagamento = { "À vista", "Parcelado" };
+
+		String[] pagamento = { "Ã€ vista", "Parcelado" };
 		Reserva reservaCliente;
 
 		// nome
 		nome = JOptionPane.showInputDialog("Nome da reserva");
 
 		// metodo de pagamento
-		resposta = JOptionPane.showOptionDialog(null, "Escolha o método de pagamento", "Pagamento",
+		resposta = JOptionPane.showOptionDialog(null, "Escolha o mÃ©todo de pagamento", "Pagamento",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, pagamento, pagamento[0]);
 
 		if (resposta == 0) {
@@ -58,24 +60,56 @@ public class FuncaoMenu {
 		return reservaCliente;
 	}
 
-	public String opcao2(ArrayList<Reserva> reserva, ArrayList<Reserva> listaEspera) {
-		String resposta = null;
-		String busca = JOptionPane.showInputDialog("Digite seu Cpf/Cnpj");
-		for (int i = 0; i < listaEspera.size(); i++) {
-			if (reserva.get(i).getFisica().getCpf().equalsIgnoreCase(busca) || reserva.get(i).getJuridica().getCnpj().equalsIgnoreCase(busca)) {
-				resposta = "Você tem uma reserva para 29/05/2021";
-			} else {
-				if (listaEspera.get(i).getFisica().getCpf().equalsIgnoreCase(busca)	|| listaEspera.get(i).getJuridica().getCnpj() == busca) {
-					resposta = "Você está em " + listaEspera.size() + "º na fila de espera";
-				}else {
-					resposta = "Você não tem uma reserva para esse restaurante";
+	public String opcao2(ArrayList<Reserva> reserva, ArrayList<Reserva> listaEspera) {// arrumar
+		String pesquisaReserva = null;
+
+		// cpf ou cnpj
+		int escolhaBusca = JOptionPane.showOptionDialog(null, "Escolha sua preferencia de cadastro", "Cadastro",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, cadastroPessoa, cadastroPessoa[0]);
+
+		if (escolhaBusca == 0) {
+			String busca = JOptionPane.showInputDialog("Digite seu Cpf");
+			for (int i = 0; i < reserva.size(); i++) {
+				if (reserva.get(i).getFisica().getCpf().equalsIgnoreCase(busca)) {
+					pesquisaReserva = "VocÃª tem uma reserva para 29/05/2021";
+				}
+			}
+			for (int i = 0; i < listaEspera.size(); i++) {
+				if (listaEspera.get(i).getFisica().getCpf().equalsIgnoreCase(busca)) {
+					pesquisaReserva = "VocÃª estÃ¡ em " + listaEspera.size() + "Âº na fila de espera";
+				} else {
+					pesquisaReserva = "VocÃª nÃ£o tem uma reserva para esse restaurante";
+				}
+			}
+			return pesquisaReserva;
+		} else {
+			String busca = JOptionPane.showInputDialog("Digite seu Cnpj");
+			for (int i = 0; i < reserva.size(); i++) {
+				if (reserva.get(i).getJuridica().getCnpj().equalsIgnoreCase(busca)) {
+					pesquisaReserva = "VocÃª tem uma reserva para 29/05/2021";
+				}
+			}
+			for (int i = 0; i < listaEspera.size(); i++) {
+				if (listaEspera.get(i).getJuridica().getCnpj().equalsIgnoreCase(busca)) {
+					pesquisaReserva = "VocÃª estÃ¡ em " + listaEspera.size() + "Âº na fila de espera";
+				} else {
+					pesquisaReserva = "VocÃª nÃ£o tem uma reserva para esse restaurante";
 				}
 			}
 
+			return pesquisaReserva;
 		}
 
-		return resposta;
 	}
-	
-	
+
+	public Reserva opcao3(Reserva reserva) {
+		Reserva posicaoReserva = reserva;
+		return posicaoReserva;
+	}
+
+	public Reserva opcao4(Reserva listaEspera) {
+		Reserva posicaoEspera = listaEspera;
+		return posicaoEspera;
+	}
+
 }
