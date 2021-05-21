@@ -29,16 +29,30 @@ public class Principal {
 					i++;
 					listaEspera.add(funcao.opcao1());
 					JOptionPane.showMessageDialog(null,
-							"A lista de reservas foi excedida, você está na " + i + "º posição");
+							"A lista de reservas foi excedida, vocÃª estÃ¡ na " + i + "Âº posiÃ§Ã£o");
 				}
 				break;
 			case 2:
 				String resposta = funcao.opcao2(reserva, listaEspera);
 				JOptionPane.showMessageDialog(null, resposta);
 				break;
-				
+			case 3:
+				for (int j = 0; j < reserva.size(); j++) {
+					JOptionPane.showMessageDialog(null, funcao.opcao3(reserva.get(j)));
+					;
+				}
+				break;
+			case 4:
+				for (int j = 0; j < listaEspera.size(); j++) {
+					JOptionPane.showMessageDialog(null,
+							funcao.opcao3(listaEspera.get(j)) + "\nPosiÃ§Ã£o: " + (j + 1) + "Âº");
+					;
+				}
+				break;
+
 			default:
-				JOptionPane.showMessageDialog(null, "Obrigado volte sempre", "Agradecimento", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Obrigado volte sempre", "Agradecimento",
+						JOptionPane.INFORMATION_MESSAGE);
 
 			}
 
